@@ -11,6 +11,10 @@ M.clone_table = function(table)
   return table2
 end
 
+M.unescape_string = function(string)
+  return string:gsub("\\n", "\n"):gsub("\\t", "\t"):gsub("\\\"", "\""):gsub("\\'", "'"):gsub("\\ ", "\\")
+end
+
 -- https://stackoverflow.com/questions/1426954/split-string-in-lua
 M.split_string = function(inputstr, sep)
   if sep == nil then

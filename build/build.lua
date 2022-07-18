@@ -106,14 +106,59 @@ function run_for(for_head_raw, for_body_raw, bindings)
 end
 
 function run_expr(expr_raw, bindings)
-  todo
-
-  for key, value in pairs(bindings) do
-    local key_start, key_end = string.find(result, "{" .. key .. "}")
-    if key_start then
-      result = string.sub(result, 1, key_start - 1) .. value .. string.sub(result, key_end + 1)
-      did_change = true
+  if expr_raw:len() == 0 then
+    error("expr is completely empty")
+  elseif expr_raw:sub(1, 1) == "\"" then
+    -- Parse string
+    if expr_raw:sub(-1, -1) ~= "\"" then
+      error("unterminated string literal: " .. expr_raw)
     end
+    return utils.unescape_string(expr_raw:sub(2, -2))
+  elseif expr_raw:sub(1, 1):find("%d") then
+    -- Parse number
+    return tonumber(expr_raw)
+  else
+    -- Parse binding path
+    local remaining = expr_raw
+    local value = bindings
+    while remaining:len() > 0 do
+      if remaining:sub(1, 1):find("%w") then
+        -- Parse identifier
+
+        -- Get id and check for dot or subscript
+        local id_end_dot, _ = remaining:find(".")
+        local id_end_subscript, _ = remaining:find("[")
+        local id_end = remaining:len()
+        local remaining_start = remaining:len()
+        if id_end_dot and (not id_end_subscript or id_end_dot < id_end_subscript) then
+          id_end = id_end_dot - 1
+          remaining_start = id_end_dot + 1
+        elseif id_end_subscript then
+          id_end = id_end_subscript - 1
+          remaining_start = id_end_subscript
+        end
+        local id = remaining:sub(1, id_end)
+        remaining = remaining.sub(remaining_start)
+
+        value = value[id]
+        if not value then
+          error("Failed to resolve binding: " .. expr_raw .. ", failed at " .. id)
+        end
+      elseif remaining:sub(1, 1):find("[") then
+        -- Parse subscript
+        local subscript_end, _ = remaining:find("]")
+        local subscript = remaining:sub(1, subscript_end - 1)
+        remaining = remaining:sub(subscript_end + 1)
+        local subscript_expr = run_expr(subscript, bindings)
+
+        value = value[subscript_expr]
+        if not value then
+          error("Failed to resolve binding: " .. expr_raw .. ", failed at [" .. subscript .. "] (" .. subscript_expr .. ")")
+        end
+      end
+    end
+
+    return value
   end
 end
 

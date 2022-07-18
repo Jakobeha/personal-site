@@ -1,0 +1,6 @@
+{
+  "index": "@fragments/index.html",
+  "about": "@fragments/projects.md",
+  "experience": "@fragments/experience.md",
+  "contact": "@fragments/contact.md"
+}

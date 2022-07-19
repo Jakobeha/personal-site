@@ -2,25 +2,27 @@
 
 This contains the template engine which builds the site.
 
+## Template language
+
 Syntax:
 
-- `$expr` becomes the contents of `expr`, an expression.
-- `@/path` becomes the contents of the `path` from the URL root.
-- `<!--input foo,bar -->` denotes that `foo` and `bar` should be bound when this content is loaded. `@/path?foo="abc",bar="xyz"` binds variables `foo` and `bar` in the contents to `path`. Any bound variables in `@path` *must* be in `<!--input -->`.
+- `{expr}` becomes the contents of `expr`, an **expression**. Expressions are
+  - Numbers, strings, `true`, `false`
+  - Binding paths, e.g. `foo`, `foo.bar`, `foo.5`, `foo:bar`, `foo.bar:baz.qux:abc` (note that the symbol after the `:` must be an identifier, not anything more complex)
+  - Local binding and then an expression, e.g. `foo=bar;baz` evaluates to `baz` where `foo` is bound to `bar`. The bound value (`bar`) can be anything except another local binding
+  - **Path**: `/foo.txt`, `/foo/bar.html`, `/foo/bar/baz.json?query=param`. This expands to the actual file contents, where the query keys (if provided) are bound to their respective values.
+    - If the file is `json` it will be an object.
+    - If the file is `txt` or `html` it will be a string
+    - If the file is `md` it will be a string with markdown converted to HTML using [luamd](https://github.com/bakpakin/luamd)
+    - Any other files aren't supported
 - `<!--for key,value in expr -->...<!--end -->` repeats `...` binding `key` and `value` to each entry in `expr`. If an array, `key` is optional and will be the index.
 - `<!--if expr -->...if<!--else -->...else<!--end -->` becomes `...if` if `expr` is `true`, `...else` if `false`. The `else` block is optional. `expr` must evaluate to `true` or `false`.
 
 Other stuff:
 
-- Expressions are `foo`, `foo.bar`, `foo[3].bar`, `foo[bar].baz`, etc. strings, numbers, `true`, and `false`. There are no functions
 - `root` is always bound to `root.json`, so `root.field` resolves to `field` located within `root.json`
-- Data loaded from `@path` must be HTML, Markdown, or text. Markdown gets converted to HTML (text also does but it's just text).
+- For security, implementors may want to represent HTML code as a separate datatype from strings, and make raw strings HTML-escape. This implementation doesn't do that
 
-Edge cases:
-
-- There must be no spaces in expressions or paths. Spaces denote the end of expressions or paths
-- You must put the `/` after the `@` to denote a path.
-- If you need to denote the end of an expression or path without a space or newline or other non-expression/path character, use `$` for expressions and `@` for paths (`$expr$` or `@/path@`)
-- Use `$$` to escape `$` and `@/@/` to escape `@/`
+## Why?
 
 Why did I make my own template engine when there are so many others? It was interesting and it only took a few hours.

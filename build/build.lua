@@ -1,5 +1,8 @@
 #! /usr/bin/env lua
 
+-- We have all the dependencies in this folder
+package.path = "./?.lua"
+
 local utils = require("utils")
 
 local site_dir = utils.get_site_dir()
@@ -9,33 +12,32 @@ local dist_dir = utils.get_dist_dir()
 local execute, run_template_file, run_template, try_substitute_splice, try_substitute_for, run_for, run_expr, run_load
 
 function execute()
-  -- Clear old dist
+  utils.log("--- building site")
+
+  utils.log("clear old dist")
   os.execute("rm -rf " .. dist_dir)
   os.execute("mkdir " .. dist_dir)
 
-  -- Copy static files into dist
-  os.execute("cp -r " .. site_dir .. "/static " .. dist_dir);
+  utils.log("copy static files into dist")
+  os.execute("cp -r " .. site_dir .. "/static/ " .. dist_dir);
 
   local root = utils.read_json(site_dir .. "/root.json")
   local pages = utils.read_json(site_dir .. "/pages.json")
+  local bindings = { root = root }
 
-  -- Render pages, they'll recursively load other files
-  for page_name, page_path in ipairs(pages) do
-    page_path = site_dir .. "/pages/" .. page_path
+  utils.log("render pages")
+  for page_name, page_expr_raw in pairs(pages) do
+    utils.log("  " .. page_name)
+    local page_expr = run_expr(page_expr_raw, bindings)
     local output_path = dist_dir .. "/" .. page_name .. ".html"
-    local page = run_template_file(page_path, {
-      root = root
-    })
-    utils.write_file(output_path, page)
+    utils.write_file(output_path, page_expr)
   end
+
+  utils.log("--- done building site")
 end
 
 function run_template_file(path, bindings)
-  if path:find("..") then
-    error("load path cannot contain .. (security issue)")
-  end
-
-  local before_extension, _ = path:find("%..+$")
+  local before_extension, _ = path:find("%.[^.]+$")
   local extension = path:sub(before_extension + 1)
 
   local content = utils.read_file(path)
@@ -61,16 +63,21 @@ function run_template(extension, content, bindings)
   -- Get expected inputs, and translate if necessary
   local _, input_start = string.find(content, "<!--input ");
   local input_end, _ = string.find(content, " -->", input_start);
-  local expected_inputs = utils.split_string(string.sub(content, input_start + 1, input_end - 1), ",")
-  table.insert(expected_inputs, "root")
+  local expected_inputs
+  if input_start then
+    expected_inputs = utils.split_string(string.sub(content, input_start + 1, input_end - 1), ",")
+  else
+    expected_inputs = {}
+  end
 
   -- Check inputs match expected
-  for _, expected_input in expected_inputs do
+  for _, expected_input in pairs(expected_inputs) do
     if not bindings[expected_input] then
       error("Missing input " .. expected_input)
     end
   end
-  for actual_input, _ in ipairs(bindings) do
+  table.insert(expected_inputs, "root")
+  for actual_input, _ in pairs(bindings) do
     if not expected_inputs[actual_input] then
       error("Extra input " .. actual_input)
     end
@@ -140,7 +147,7 @@ function run_for(for_head_raw, for_body_raw, bindings)
   local for_expr = run_expr(for_expr_raw, bindings)
 
   local result = ""
-  for key, value in ipairs(for_expr) do
+  for key, value in pairs(for_expr) do
     local item_bindings = utils.clone_table(bindings)
     if key_binding then
       item_bindings[key_binding] = key
@@ -240,7 +247,7 @@ function run_load(load_raw, bindings)
 
     -- Fill load args
     local load_arg_kvs = utils.split_string(load_raw:sub(after_load_args + 1, -1), ",")
-    for _, kv in ipairs(load_arg_kvs) do
+    for _, kv in pairs(load_arg_kvs) do
       local kv_split = utils.split_string(kv, "=")
       if #kv_split ~= 2 then
         error("Invalid load argument: " .. kv)
@@ -254,6 +261,13 @@ function run_load(load_raw, bindings)
     load_path = load_raw
     -- No load args to fill
   end
+
+  -- Small check for security (not really necessary)
+  if load_path:find("%.%.") then
+    error("load path cannot contain .. (security issue): " .. load_path)
+  end
+
+  utils.log("    loading " .. load_path)
 
   -- Prepend site_dir to load_path (already has the leading /)
   load_path = site_dir .. load_path

@@ -1,3 +1,2 @@
 all:
-				cd build
-				lua build/build.lua
+				cd build; lua build.lua

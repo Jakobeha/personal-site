@@ -3,6 +3,15 @@ local M = {}
 local json = require("json")
 local md = require("md")
 
+M.log = function(...)
+  io.stderr:write(string.format(...))
+  io.stderr:write("\n")
+end
+
+M.dump = function(value)
+  return json.stringify(value)
+end
+
 M.clone_table = function(table)
   local table2 = {}
   for k,v in pairs(table) do

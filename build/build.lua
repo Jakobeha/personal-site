@@ -58,51 +58,89 @@ function run_template(extension, content, inputs)
   bindings.root = root
 
   -- Substitute
-  local result = content
-  local did_change = true
-  while did_change do
-    did_change = false
+  local result = nil
+  local new_result = result
+  while new_result do
+    result = new_result
+    new_result = nil
 
     -- Substitute a <!--for key,value in expr -->...<!--end --> block
-    local _, for_head_start = result:find("<!--for ");
-    if for_head_start then
-      local for_head_end = result:find(" -->", for_head_start);
-      local for_head_raw = result:sub(for_head_start + 1, for_head_end - 1);
-      local for_end = result:find("<!--end -->", for_head_end);
-      local for_body_raw = result:sub(for_head_end + 1, for_end - 1);
-      local for_body = run_for(for_head_raw, for_body_raw, bindings)
-      result = result:sub(1, for_head_start - 1) .. for_body .. result:sub(for_end + 1)
-    end
+    new_result = try_substitute_block("for", run_for, result, bindings)
 
-    if not did_change then
+    if not new_result then
       -- Substitute a $ (not $$)
-      local _, start_index = result:find("$")
-      if start_index and result:sub(start_index + 1, start_index + 1) ~= "$" then
-        local end_index = result:find(result, " ", start_index)
-        local expr_raw = result:sub(result, start_index + 1, end_index - 1)
-        local expr = run_expr(expr_raw, bindings)
-        result = result:sub(1, start_index - 1) .. expr .. result:sub(end_index + 1)
-        did_change = true
-      end
+      new_result = try_substitute("$", "$", run_expr, result, bindings)
     end
 
-    if not did_change then
+    if not new_result then
       -- Substitute a @ (not @@)
-      local _, start_index = result:find("@")
-      if start_index and result:sub(start_index + 1, start_index + 1) ~= "@" then
-        local end_index = result:find(result, " ", start_index)
-        local load_raw = result:sub(result, start_index + 1, end_index - 1)
-        local load = run_load(load_raw, bindings)
-        result = result:sub(1, start_index - 1) .. load .. result:sub(end_index + 1)
-        did_change = true
-      end
+      new_result = try_substitute("@/", "@", run_load, result, bindings)
     end
   end
+  return result
 end
 
+function try_substitute_block(pattern, run_block, result, bindings)
+  local _, block_head_start = result:find("<!--" .. pattern .. " ");
+  if not block_head_start then
+    return nil
+  end
+
+  local block_head_end = result:find(" -->", block_head_start);
+  local block_head_raw = result:sub(block_head_start + 1, block_head_end - 1);
+  local block_end = result:find("<!--end -->", block_head_end);
+  local block_body_raw = result:sub(block_head_end + 1, block_end - 1);
+  local block_body = run_block(block_head_raw, block_body_raw, bindings)
+
+  return result:sub(1, block_head_start - 1) .. block_body .. result:sub(block_end + 1)
+end
+
+function try_substitute(pattern, manual_end_pattern, run, result, bindings)
+  local before_start_index, after_start_index = result:find(pattern)
+  if not before_start_index or result:sub(after_start_index + 1, after_start_index + pattern:len()) == pattern then
+    return nil
+  end
+
+  local end_index1 = result:find(result, " ", after_start_index + 1)
+  local end_index2 = result:find(result, manual_end_pattern, after_start_index + 1)
+  local before_end_index, after_end_index
+  if end_index1 <= end_index2 then
+    before_end_index = end_index1 - 1
+    after_end_index = end_index1
+  else
+    before_end_index = end_index2 - 1
+    after_end_index = end_index2 + 1
+  end
+
+  local expr_raw = result:sub(result, after_start_index + 1, before_end_index)
+  local expr = run(expr_raw, bindings)
+
+  return result:sub(1, before_start_index - 1) .. expr .. result:sub(after_end_index)
+end
 
 function run_for(for_head_raw, for_body_raw, bindings)
-  todo
+  local before_for_in, after_for_in = for_head_raw:find(" in ")
+  local for_bindings = for_head_raw:sub(1, before_for_in - 1)
+  for_bindings = utils.split_string(for_bindings, ",")
+  local key_binding = for_bindings[1]
+  local value_binding = for_bindings[2]
+  if not key_binding then
+    value_binding = key_binding
+    key_binding = nil
+  end
+  if not value_binding then
+    error("Missing value in for")
+  end
+  local for_expr_raw = for_head_raw:sub(after_for_in + 1)
+  local for_expr = run_expr(for_expr_raw, bindings)
+
+  local result = ""
+  for key, value in ipairs(for_expr) do
+    local item_bindings = utils.clone_table(bindings)
+    item_bindings[key_binding] = key
+    item_bindings[value_binding] = value
+    result = result .. run_template("html", for_body_raw, item_bindings)
+  end
 end
 
 function run_expr(expr_raw, bindings)
@@ -163,5 +201,31 @@ function run_expr(expr_raw, bindings)
 end
 
 function run_load(load_raw, bindings)
-  todo
+  local before_load_args, after_load_args = load_raw:find("?")
+  local load_path, load_args
+  if before_load_args then
+    load_path = load_raw:sub(1, before_load_args - 1)
+    load_args = utils.split_string(load_raw:sub(after_load_args + 1, -1), ",")
+  else
+    load_path = load_raw
+    load_args = {}
+  end
+  local before_load_extension, _ = load_path:find("%..+$")
+  local load_extension = load_path:sub(before_load_extension + 1)
+
+  if load_path:find("..") then
+    error("load path cannot contain .. (security issue)")
+  end
+
+  local load_contents = utils.read_file(fragments_dir .. "/" .. load_path)
+  if not load_contents then
+    error("Failed to load fragment: " .. load_path)
+  end
+
+  local load_bindings = utils.clone_table(bindings)
+  for key, arg_raw in ipairs(load_args) do
+    local arg = run_expr(arg_raw, bindings)
+    load_bindings[key] = arg
+  end
+  return run_template(load_extension, load_contents, load_bindings)
 end

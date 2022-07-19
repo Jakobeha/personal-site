@@ -2,15 +2,15 @@
   "name": "Jakob Hain",
   "github": "Jakobeha",
   "url": "https://jakobeha.github.io",
-  "summary": "@fragments/summary.txt",
+  "summary": "@/summary.txt",
   "links": {
     "projects": "Projects",
     "experience": "Experience",
     "contact": "Contact"
   },
   "link_summaries": {
-    "projects": "@fragments/projects-summary.md",
-    "experience": "@fragments/experience-summary.md",
-    "contact": "@fragments/contact.md"
+    "projects": "@/projects-summary.md",
+    "experience": "@/experience-summary.md",
+    "contact": "@/contact.md"
   }
 }

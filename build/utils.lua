@@ -51,6 +51,10 @@ M.read_json = function(path)
   return json.parse(content)
 end
 
+M.parse_json = function(content)
+  return json.parse(content)
+end
+
 M.markdown_to_html = function(markdown)
   local html, err = md.renderString(markdown)
   if not html then

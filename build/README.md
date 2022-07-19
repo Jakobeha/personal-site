@@ -21,6 +21,7 @@ Syntax:
 Other stuff:
 
 - `root` is always bound to `root.json`, so `root.field` resolves to `field` located within `root.json`
+- `name` is always bound to the
 - For security, implementors may want to represent HTML code as a separate datatype from strings, and make raw strings HTML-escape. This implementation doesn't do that
 
 ## Why?

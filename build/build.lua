@@ -255,6 +255,9 @@ function run_load(load_raw, bindings)
     -- No load args to fill
   end
 
+  -- Prepend site_dir to load_path (already has the leading /)
+  load_path = site_dir .. load_path
+
   return run_template_file(load_path, load_args)
 end
 

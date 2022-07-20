@@ -1,7 +1,7 @@
 local M = {}
 
 local json = require("json")
-local md = require("md")
+local markdown = require("markdown")
 
 M.log = function(...)
   io.stderr:write(string.format(...))
@@ -99,8 +99,8 @@ M.parse_json = function(content)
   return json.parse(content)
 end
 
-M.markdown_to_html = function(markdown)
-  local html, err = md.renderString(markdown)
+M.markdown_to_html = function(md)
+  local html, err = markdown(md)
   if not html then
     error("Could not render markdown: " .. err)
   end

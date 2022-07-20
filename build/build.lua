@@ -1,7 +1,8 @@
 #! /usr/bin/env lua
 
 -- We have all the dependencies in this folder
-package.path = "./?.lua"
+package.path = "./?.lua;./lunamark/?.lua"
+package_cpath = "./?.so;./lunamark/?.so"
 
 local utils = require("utils")
 

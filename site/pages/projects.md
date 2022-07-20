@@ -13,4 +13,4 @@ Key personal projects:
 - **Descript ([v1 (Haskell)](https://bitbucket.org/jakobeha/descript-lang/src/master/) and [v2 (OCaml)](https://bitbucket.org/jakobeha/descript-ocaml/src/master/))**: A language designed to transform its own syntax. Descript programs can be applied to other source files, actually modifying them on the file-system
 
 And [this
-website](https://github.com/Jakobeha/personal-site).
+website](https://github.com/Jakobeha/jakobeha.github.io).

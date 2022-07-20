@@ -8,6 +8,8 @@ My (Jakob Hain's) personal site. It uses a really basic template system (see [bu
 
 `watch.sh` launches a file-watcher and live-server. You must have [node.js](https://nodejs.com) and [pnpm](https://www.npmjs.com/package/pnpm) installed.
 
+`deploy.sh` to deploy to {yourname}.github.io. The actual code branch must be named `develop` and the branch with the rendered site will be `site`. You also have to do some configuration on GitHub.
+
 ## File structure
 
 - `/build`: Contains the build scripts which turn `/site` into `/dist`

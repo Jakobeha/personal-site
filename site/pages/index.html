@@ -1,13 +1,12 @@
-<h2>My personal website</h2>
-<p><img src="/img/me.png" loading="lazy" class="index-me" alt="me"></p>
-<p role="doc-abstract">{root.summary}</p>
+<img src="/img/me.png" loading="lazy" class="index-me" alt="me">
+{root.summary}
 <div class="index-summaries">
   <!--for filename,name in root.links -->
-  <section class="index-summary">
-    <h3>
+  <section>
+    <h2 class="index-summary-header">
       <!--suppress HtmlUnknownTarget -->
       <a href="/{filename}.html">{name}</a>
-    </h3>
+    </h2>
     {root.link_summaries:filename}
   </section>
   <!--end -->

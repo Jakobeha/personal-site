@@ -1,3 +1,5 @@
+/* Universal */
+
 :root {
   --foreground-color: #222;
   --foreground-color-dim: #555;
@@ -10,9 +12,45 @@
 html {
   background-color: var(--background-color);
   color: var(--foreground-color);
-  font: 1em sans-serif;
-  font-family: "Noto Sans", Helvetica, sans-serif;
-  line-height: 1.4;
+  font: 1em "Noto Sans", Helvetica, sans-serif;
+  line-height: 1.5;
+}
+
+code, pre, kbd, samp {
+  font-family: "Noto Sans Mono", monospace;
+  font-size: 1em;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+h4 {
+  font-size: 1.25rem;
+}
+
+h5, h6 {
+  font-size: 1rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 1.5rem 0 0.375rem;
+}
+
+h1:first-child, h1 + h2, h2 + h3, h3 + h4, h4 + h5, h5 + h6 {
+  margin-top: 0.375rem;
+}
+
+p, ul, li {
+  margin: 0.75rem 0;
 }
 
 a {
@@ -32,14 +70,6 @@ a:visited {
   color: var(--link-color-visited);
 }
 
-.light-mode {
-  display: initial;
-}
-
-.dark-mode {
-  display: none;
-}
-
 header {
   border-bottom: 0.2rem solid var(--foreground-color);
 }
@@ -51,13 +81,17 @@ nav {
 nav a {
   font-size: 1.8rem;
   font-weight: bold;
-  color: var(--foreground-color);
   text-transform: uppercase;
+}
+
+nav a, nav a:visited {
+  color: var(--foreground-color);
 }
 
 nav a img {
   height: 1.5rem;
-  vertical-align: text-top;
+  vertical-align: middle;
+  margin-bottom: 0.3rem;
 }
 
 footer {
@@ -68,36 +102,23 @@ footer {
   color: var(--foreground-color-dim);
 }
 
-h1 {
-  font-size: 2.4rem;
-}
-
-h2 {
-  font-size: 2rem;
-}
-
 article .header {
   font-size: 1.4rem;
   font-style:italic;
   color: var(--foreground-color-dim);
 }
 
-.logo a {
-  font-weight: bold;
-  color: var(--foreground-color);
+.logo {
+  text-align: left;
+  text-transform: none;
 }
 
-.index-body {
-  overflow: auto;
+.light-mode {
+  display: initial;
 }
 
-.index-me {
-  float: right;
-  width: 33%;
-}
-
-.index-links {
-  float: left;
+.dark-mode {
+  display: none;
 }
 
 @media (max-width: 319px) {
@@ -121,8 +142,7 @@ article .header {
   }
 
   .logo {
-    text-align: center;
-    margin: 1rem auto 3rem;
+    display: block;
   }
 
   .logo a {
@@ -156,8 +176,7 @@ article .header {
   }
 
   .logo {
-    text-align: center;
-    margin: 1rem auto 3rem;
+    display: block;
   }
 
   .logo a {
@@ -178,7 +197,7 @@ article .header {
   }
 
   header {
-    margin: 0 0 3rem;
+    margin: 0 0 1rem;
     padding: 1.2rem 0;
   }
 
@@ -197,12 +216,11 @@ article .header {
   }
 
   .logo {
+    float: left;
     margin: 0;
-    text-align: left;
   }
 
   .logo a {
-    float: left;
     font-size: 1.8rem;
   }
 }
@@ -225,4 +243,20 @@ article .header {
   .dark-mode {
     display: initial;
   }
+}
+
+/* Index */
+
+.index-body {
+  overflow: auto;
+}
+
+.index-me {
+  float: right;
+  width: 33%;
+  margin-left: 1rem;
+}
+
+.index-summary-header a {
+  color: var(--foreground-color);
 }

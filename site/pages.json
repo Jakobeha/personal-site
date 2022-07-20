@@ -1,6 +1,6 @@
 {
-  "index": "/pages/boilerplate.html?title=\"Jakob Hain\",content=/pages/index.html",
-  "about": "/pages/boilerplate.html?title=\"About\",content=/pages/projects.md",
+  "index": "/pages/boilerplate.html?title=\"My personal site\",content=/pages/index.html",
+  "projects": "/pages/boilerplate.html?title=\"Projects\",content=/pages/projects.md",
   "experience": "/pages/boilerplate.html?title=\"Experience\",content=/pages/experience.md",
   "contact": "/pages/boilerplate.html?title=\"Contact\",content=/pages/contact.md",
   "404": "/pages/404.html"

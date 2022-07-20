@@ -78,18 +78,28 @@ local function findDelim(str, start, max)
   return delim, min, finish
 end
 
+local function directLinkEscape(str, t)
+  local nomatches = true
+  for m1, m2, m3 in gmatch(str, '(.*)<(%w*%://.*)>(.*)') do
+    if nomatches then t[#t + 1] = m1; nomatches = false end
+    t[#t + 1] = {m2, type = 'a', attributes = {href = m2}}
+    t[#t + 1] = m3
+  end
+  if nomatches then t[#t + 1] = str end
+end
+
 local function externalLinkEscape(str, t)
   local nomatches = true
   for m1, m2, m3 in gmatch(str, '(.*)%[(.*)%](.*)') do
-    if nomatches then t[#t + 1] = match(m1, '^(.-)!?$'); nomatches = false end
+    if nomatches then directLinkEscape(match(m1, '^(.-)!?$'), t); nomatches = false end
     if byte(m1, #m1) == byte '!' then
       t[#t + 1] = {type = 'img', attributes = {alt = m2}}
     else
       t[#t + 1] = {m2, type = 'a'}
     end
-    t[#t + 1] = m3
+    directLinkEscape(m3, t)
   end
-  if nomatches then t[#t + 1] = str end
+  if nomatches then directLinkEscape(str, t) end
 end
 
 local function linkEscape(str, t)

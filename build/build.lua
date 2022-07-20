@@ -9,7 +9,7 @@ local site_dir = utils.get_site_dir()
 local dist_dir = utils.get_dist_dir()
 -- now we don't have to prefix paths with site_dir ..
 
-local execute, run_template_file, run_template, try_substitute_splice, try_substitute_raw, try_substitute_for, run_raw, run_for, run_expr, run_load
+local execute, run_template_file, run_template, try_substitute_splice, try_substitute_raw, try_substitute_for, run_raw, run_for, run_expr, run_load, get_binding
 
 function execute()
   utils.log("--- building site")
@@ -23,10 +23,10 @@ function execute()
 
   local root = utils.read_json(site_dir .. "/root.json")
   local pages = utils.read_json(site_dir .. "/pages.json")
-  local bindings = { root = root }
+  local bindings = { { "root", root } }
 
   utils.log("render pages")
-  for page_name, page_expr_raw in pairs(pages) do
+  for page_name, page_expr_raw in utils.opairs(pages) do
     utils.log("  " .. page_name)
     local page_expr = run_expr(page_expr_raw, bindings)
     local output_path = dist_dir .. "/" .. page_name .. ".html"
@@ -47,6 +47,7 @@ function run_template_file(path, bindings, inputs)
 end
 
 function run_template(extension, content, bindings, inputs)
+  local has_inputs = next(inputs) ~= nil
   if extension == "html" then
     -- Already translated
   elseif extension == "md" then
@@ -55,7 +56,7 @@ function run_template(extension, content, bindings, inputs)
     -- Already translated
   elseif extension == "json" then
     -- JSON = don't check inputs or substitutions, just parse
-    if #bindings > 1 then
+    if has_inputs then
       error("passing query params to JSON is unsupported")
     end
     return utils.parse_json(content)
@@ -73,14 +74,14 @@ function run_template(extension, content, bindings, inputs)
   end
 
   -- Check inputs match expected
-  for _, expected_input in pairs(expected_inputs) do
-    if not inputs[expected_input] then
-      error("Missing input " .. expected_input)
+  for _, expected_input in ipairs(expected_inputs) do
+    if not utils.array_assoc(inputs, expected_input) then
+      error("Missing input " .. expected_input .. " (actual inputs = " .. utils.dump(inputs) .. ")")
     end
   end
-  for actual_input, _ in pairs(inputs) do
+  for actual_input, _ in utils.opairs(inputs) do
     if actual_input ~= "root" and not utils.array_contains(expected_inputs, actual_input) then
-      error("Extra input " .. actual_input .. " (inputs = " .. utils.dump(expected_inputs) .. ")")
+      error("Extra input " .. actual_input .. " (expected inputs = " .. utils.dump(expected_inputs) .. ")")
     end
   end
 
@@ -88,9 +89,9 @@ function run_template(extension, content, bindings, inputs)
   -- we need to clone so we don't modify the bindings as input to this function
   -- If there are no inputs though, we don't need to clone:
   -- none of the operations affect bindings directly
-  if next(inputs) then
+  if has_inputs then
     bindings = utils.clone_table(bindings)
-    utils.add_to_table(bindings, inputs)
+    utils.append(bindings, inputs)
   end
 
   -- Substitute
@@ -181,12 +182,12 @@ function run_for(for_head_raw, for_body_raw, bindings)
   local for_expr = run_expr(for_expr_raw, bindings)
 
   local result = ""
-  for key, value in pairs(for_expr) do
+  for key, value in utils.opairs(for_expr) do
     local item_bindings = utils.clone_table(bindings)
     if key_binding then
-      item_bindings[key_binding] = key
+      table.insert(item_bindings, {key_binding, key})
     end
-    item_bindings[value_binding] = value
+    table.insert(item_bindings, {value_binding, value})
     result = result .. run_template("html", for_body_raw, item_bindings, {})
   end
   return result
@@ -223,7 +224,7 @@ function run_expr(expr_raw, bindings)
     local binding_value_raw = binding_name_and_value[2]
     local binding_value = run_expr(binding_value_raw, bindings)
     local new_bindings = utils.clone_table(bindings)
-    new_bindings[binding_name] = binding_value
+    table.insert(new_bindings, {binding_name, binding_value})
     local remaining = expr_raw:sub(semicolon_pos + 1)
     return run_expr(remaining, new_bindings)
   else
@@ -261,12 +262,12 @@ function run_expr(expr_raw, bindings)
       if is_subscript then
         local subscript_expr = run_expr(id, bindings)
 
-        value = value[subscript_expr]
+        value = get_binding(value, subscript_expr)
         if not value then
           error("Failed to resolve binding: " .. expr_raw .. ", failed at :" .. id .. " (." .. subscript_expr .. ")")
         end
       else
-        value = value[id]
+        value = get_binding(value, id)
         if not value then
           error("Failed to resolve binding: " .. expr_raw .. ", failed at " .. id)
         end
@@ -286,7 +287,7 @@ function run_load(load_raw, bindings)
 
     -- Fill load args
     local load_arg_kvs = utils.split_string(load_raw:sub(after_load_args + 1, -1), ",")
-    for _, kv in pairs(load_arg_kvs) do
+    for _, kv in ipairs(load_arg_kvs) do
       local kv_split = utils.split_string(kv, "=")
       if #kv_split ~= 2 then
         error("Invalid load argument: " .. kv)
@@ -294,7 +295,7 @@ function run_load(load_raw, bindings)
       local key = kv_split[1]
       local value_raw = kv_split[2]
       local value = run_expr(value_raw, bindings)
-      load_args[key] = value
+      table.insert(load_args, {key, value})
     end
   else
     load_path = load_raw
@@ -314,5 +315,17 @@ function run_load(load_raw, bindings)
   return run_template_file(load_path, bindings, load_args)
 end
 
+function get_binding(bindings, id)
+  local result = nil
+  for k,v in utils.opairs(bindings) do
+    if k == id then
+      if result ~= nil
+        then error("Ambiguous binding: " .. id)
+      end
+      result = v
+    end
+  end
+  return result
+end
 
 execute()

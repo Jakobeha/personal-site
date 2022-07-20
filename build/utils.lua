@@ -13,12 +13,21 @@ M.dump = function(value)
 end
 
 M.array_contains = function(items, test)
-  for _, item in pairs(items) do
+  for _, item in ipairs(items) do
     if item == test then
       return true
     end
   end
   return false
+end
+
+M.array_assoc = function(items, key)
+  for k, v in M.opairs(items) do
+    if k == key then
+      return v
+    end
+  end
+  return nil
 end
 
 M.clone_table = function(table)
@@ -29,9 +38,20 @@ M.clone_table = function(table)
   return table2
 end
 
-M.add_to_table = function(dst, src)
-  for k,v in pairs(src) do
-    dst[k] = v
+M.append = function(dst, src)
+  local len = #dst
+  for i,x in ipairs(src) do
+    dst[len + i] = x
+  end
+end
+
+M.opairs = function(array_of_pairs)
+  local i = 0
+  return function()
+    i = i + 1
+    if i <= #array_of_pairs then
+      return array_of_pairs[i][1], array_of_pairs[i][2]
+    end
   end
 end
 

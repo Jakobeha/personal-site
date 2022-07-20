@@ -1,5 +1,11 @@
 --[[ json.lua
 
+Modified so that parsing JSON returns an array of pairs instead of a table.
+Stringify remains unchanged even though it makes stringify(parse(x)) ~= x,
+since it's only used for debugging and used to have different key order anyways
+
+-------------------------------------------------------------------------------
+
 https://gist.github.com/tylerneylon/59f4bcf316be525b30ab
 
 A compact pure-Lua JSON library.
@@ -156,15 +162,18 @@ function json.parse(str, pos, end_delim)
   local pos = pos + #str:match('^%s*', pos)  -- Skip whitespace.
   local first = str:sub(pos, pos)
   if first == '{' then  -- Parse an object.
-    local obj, key, delim_found = {}, true, true
+    local obj, key, value, delim_found, i = {}, true, true, true, 1
     pos = pos + 1
     while true do
       key, pos = json.parse(str, pos, '}')
       if key == nil then return obj, pos end
       if not delim_found then error('Comma missing between object items.') end
       pos = skip_delim(str, pos, ':', true)  -- true -> error if missing.
-      obj[key], pos = json.parse(str, pos)
+      value, pos = json.parse(str, pos)
       pos, delim_found = skip_delim(str, pos, ',')
+
+      obj[i] = {key, value}
+      i = i + 1
     end
   elseif first == '[' then  -- Parse an array.
     local arr, val, delim_found = {}, true, true

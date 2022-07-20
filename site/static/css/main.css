@@ -255,6 +255,9 @@ article .header {
   float: right;
   width: 33%;
   margin-left: 1rem;
+  aspect-ratio: 3 / 4;
+  outline: 2px solid var(--foreground-color);
+  outline-offset: -2px;
 }
 
 .index-summary-header a {

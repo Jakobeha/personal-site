@@ -26,19 +26,16 @@
     <a href="/index.html">{root.name}</a>
   </div>
   <nav>
-    <a href="/index.html">Home</a>
     <!--for filename,name in root.links -->
       <!--suppress HtmlUnknownTarget -->
       <a href="/{filename}.html">{name}</a>
     <!--end -->
-  </nav>
-  <div class="github">
-    <a href="https://github.com/{root.github}/personal-site">
-      Source
+
+    <a class="github" href="https://github.com/{root.github}/personal-site" title="view source">
       <img src="/img/github.png" alt="github" class="light-mode">
       <img src="/img/github-light.png" alt="github" class="dark-mode">
     </a>
-  </div>
+  </nav>
 </header>
 <main role="main">
   <h1>{title}</h1>

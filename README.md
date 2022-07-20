@@ -12,7 +12,7 @@ My (Jakob Hain's) personal site. It uses a really basic template system (see [bu
   - `/site/root.json` contains site data
   - `/site/pages.json` specifically loads the webpages and wraps them in boilerplate, and this is the entry-point for the builder
 - `/dist` (excluded from Git): contains the output site.
-- `build.sh` = `build.lua` = build script, `watch.sh` = `watch.js` = live-server and file-watcher
+- `build.sh` = `build/build.lua` = build script, `watch.sh` = `watch/index.mjs` = live-server and file-watcher
 
 ## Distribution
 

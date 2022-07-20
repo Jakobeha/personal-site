@@ -1,0 +1,16 @@
+{
+  "name": "watch",
+  "version": "1.0.0",
+  "description": "starts a live-server and rebuilds on 'site' change",
+  "main": "index.mjs",
+  "scripts": {
+    "start": "node index.mjs"
+  },
+  "keywords": [],
+  "author": "jakobeha",
+  "license": "MIT",
+  "dependencies": {
+    "chokidar": "^3.5.3",
+    "live-server": "^1.2.2"
+  }
+}

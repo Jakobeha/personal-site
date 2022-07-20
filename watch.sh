@@ -1,1 +1,1 @@
-cd build; node watch.js
+cd watch; pnpm run start

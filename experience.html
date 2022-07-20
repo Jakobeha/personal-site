@@ -1,0 +1,106 @@
+<!--input title,content -->
+<!doctype html>
+<html lang="en_US">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="description" content="my personal site (Jakob Hain)">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="Jakob Hain">
+  <meta property="og:type" content="website.profile">
+  <meta property="og:url" content="https://jakobeha.github.io">
+  <meta property="og:image" content="img/me.png">
+
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link rel="stylesheet" href="/css/main.css">
+
+  <meta name="theme-color" content="#fafafa">
+</head>
+
+<!-- The actual site -->
+<body>
+<header>
+  <nav>
+    <a class="logo" href="/index.html">Jakob Hain</a>
+    
+      <!--suppress HtmlUnknownTarget -->
+      <a href="/projects.html">Projects</a>
+    
+      <!--suppress HtmlUnknownTarget -->
+      <a href="/experience.html">Experience</a>
+    
+      <!--suppress HtmlUnknownTarget -->
+      <a href="/contact.html">Contact</a>
+    
+
+    <a class="github" href="https://github.com/Jakobeha/Jakobeha.github.io" title="view source">
+      <img src="/img/github.png" alt="github" class="light-mode">
+      <img src="/img/github-light.png" alt="github" class="dark-mode">
+    </a>
+  </nav>
+</header>
+<main role="main">
+  <h1>Experience</h1>
+  
+<h2>Prior September 2017</h2>
+
+<p>I started programming as a hobby working on side projects. In high school I took AP Computer Science A + AP Computer Science Principles.</p>
+
+<h2>Northeastern University: September 2017 - January 2020</h2>
+
+<p>I graduated with a Bachelor's degree in Computer Science and a GPA of 3.877 / 4. Notable classes:</p>
+
+<ul>
+    <li><strong>CS2500 Fundamentals of Computer Science 1</strong>: Writing simple functional programs in Racket</li>
+    <li><strong>CS4992 "Hack Your Own Language"</strong>: Build a DSL in Racket (my group built a JavaDoc-like extension, which parses documentation into Scribble and checks examples)</li>
+    <li><strong>CS2800 Logic and Computation</strong>: Basic theorem proving with ACL2s</li>
+    <li><strong>CS4800 Algorithms and Data</strong>: Basic algorithms</li>
+    <li><strong>CS3650 Systems</strong>: Low-level systems programming (e.g. assembly) and optimization</li>
+    <li><strong>CS4550 Web Development</strong>: Fast overview of client (jQuery, React, Angular, Elm), server (Java + Spring Boot, node.js express, Elixir + Phoenix), and database (MySQL + JPA, PostgreSQL + Ecto, MongoDB) technologies</li>
+    <li><strong>CS4992 Directed Study</strong>: Read papers on abstract interpretation, control flow analysis in Scheme, and STM. Wrote summaries / implemented the algorithms</li>
+    <li><strong>ENGW3301 Advanced Writing</strong>: Technical writing to different audiences (e.g. research paper, portfolio)</li>
+    <li><strong>CS4910 Verified Compilers</strong>: Build Toy languages / compiler passes in Coq, and prove that passes preserve semantics via simulation relations</li>
+    <li><strong>CS4500 Software Development</strong>: Develop an application with a team in an industry-like scenario, writing design documents and leading / paneling code walks</li>
+    <li><strong>CS4200 Networks and Distributed Systems</strong>: High-level overview of how networks and distributed systems work: the ISO-OSI stack, and examples of layer implementations / protocols / distributed systems used in practice (e.g. Ethernet, TCP, Paxos, HTTP)</li>
+    <li><strong>CS4410 Compilers</strong>: Followed <em><a href="https://www.amazon.com/Modern-Compiler-Implementation-Andrew-Appel-ebook/dp/B00D2WQAE8">Modern Compiler Implementation in ML</a></em> and built a Tiger compiler to MIPS: lexer, parser, static semantics, IR generator, assembler, liveness / dataflow analysis, register allocation with coalescing</li>
+</ul>
+
+<p>I also attended hackathons and clubs, and presented a poster at <a href="https://www.northeastern.edu/rise/">RISE</a> (a small University expo) on a side project: <a href="https://github.com/jakobeha/treescript"><strong>TreeScript</strong></a>, a programming language that rewrites syntax of other languages.</p>
+
+<h3>NuPRL</h3>
+
+<p>I worked at <a href="http://prl.ccs.neu.edu/">Northeastern's Programming Research Laboratory (NuPRL)</a> on an R JIT compiler called <a href="https://github.com/reactorlabs/rir">Ř</a>, with a large team. My specific contributions include:</p>
+
+<ul>
+    <li>Creating micro-benchmarks for individual components (e.g. while loops), and profiling them</li>
+    <li>"Simple ranges": an optimization pass which compiles <code>for (i in a:b) ...</code> into a C-style while loop, avoiding range allocation</li>
+    <li>Improved type inference and "type assertions", which validate that the inferred types are actually correct in debug mode</li>
+    <li>Bytecode serialization / deserialization, so we don't need to recompile the same function across sessions</li>
+    <li>Experimented with manually adding extra annotations to functions to improve analysis / optimization, and checking these annotations at runtime</li>
+    <li>Added a configurable assertion that a function won't modify variables outside of its lexical scope. In the R REPL, if a variable gets modified during execution of said function, the interpreter will signal an error and abort the current command.</li>
+</ul>
+
+<p>We published one paper, <strong><a href="https://arxiv.org/abs/1907.05118">R Melts Brains</a></strong> (SPLASH 2019). It describes the challenges of implementing a JIT compiler with static analysis in R, mainly because of laziness and first-class environments.</p>
+
+<h2>PRL@PRG Internship: January 2020 - May 2020 in Prague, June 2020 - July 2020 at home</h2>
+
+<p>I was a assistant researcher at the <a href="https://prl-prg.github.io/"><a href="&#x6d;&#97;&#x69;&#108;&#x74;&#111;&#x3a;P&#82;&#x4c;&#64;&#x50;&#82;&#x47;">&#x50;&#82;&#x4c;&#64;&#x50;&#82;&#x47;</a></a> lab in Prague, supervised by Jan Vitek. I helped write the paper <strong><a href="http://janvitek.org/pubs/oopsla20-cd.pdf">Contextual Dispatch for Function Specialization</a></strong> (SPLASH 2020), and developed a profiler for Ř. After the paper was published, I continued to work on the profiler and added an event logger. The profiler and event logger measure: number of call sites per function, number of times each function was executed at each call site, total execution time of the function, number of versions of each function (we compile multiple versions for different optimization contexts), time spent in each compilation pass for each version, number of times each function was deoptimized.</p>
+
+<h2>Purdue Graduate School</h2>
+
+<p>Currently, I am attending Purdue University of Indiana. As of spring 2021 I have taken:</p>
+
+<ul>
+    <li><strong>CS510 Software Engineering:</strong> Software engineering focused on machine learning to automate bug detection</li>
+    <li><strong>CS584 Theory:</strong> Turing machines, complexity classes, and basic quantum computing</li>
+</ul>
+
+
+</main>
+</body>
+<footer>
+  Created with <a href="https://html5boilerplate.com/">HTML5 boilerplate 8.0</a>. Theme derived from <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+</footer>
+</html>

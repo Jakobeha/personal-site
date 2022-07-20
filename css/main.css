@@ -71,14 +71,18 @@ a:visited {
 }
 
 header {
+  margin: 0 0 1rem;
+  padding: 1.2rem 0;
   border-bottom: 0.2rem solid var(--foreground-color);
 }
 
 nav {
-  text-align: right;
+  margin: 0;
 }
 
 nav a {
+  margin: 0 0 0 1.2rem;
+  display: inline;
   font-size: 1.8rem;
   font-weight: bold;
   text-transform: uppercase;
@@ -100,6 +104,7 @@ footer {
   border-top: 0.2rem solid var(--foreground-color);
   font-size: 1.2rem;
   color: var(--foreground-color-dim);
+  text-align: right;
 }
 
 article .header {
@@ -121,58 +126,36 @@ article .header {
   display: none;
 }
 
-@media (max-width: 319px) {
+@media (max-width: 479px) {
   body {
-    width: 90%;
+    width: 95%;
     margin: 0;
-    padding: 0 5%;
-  }
-
-  header {
-    margin: 4.2rem 0;
-  }
-
-  nav {
-    margin: 0 auto 3rem;
-    text-align: center;
-  }
-
-  footer {
-    text-align:center;
-  }
-
-  .logo {
-    display: block;
-  }
-
-  .logo a {
-    font-size: 2.4rem;
+    padding: 0 2.5%;
   }
 
   nav a {
     display: block;
     line-height: 1.6;
   }
+
+  nav a:nth-last-child(2) {
+    display: inline;
+  }
+
+  .logo {
+    font-size: 2.5rem;
+  }
+
+  .github {
+    display: inline;
+  }
 }
 
-@media (min-width: 320px) {
+@media (min-width: 480px) {
   body {
     width: 90%;
     margin: 0;
     padding: 0 5%;
-  }
-
-  header {
-    margin: 4.2rem 0;
-  }
-
-  nav {
-    margin: 0 auto 3rem;
-    text-align: center;
-  }
-
-  footer {
-    text-align: center;
   }
 
   .logo {
@@ -189,29 +172,14 @@ article .header {
   }
 }
 
-@media (min-width:640px) {
+@media (min-width:1000px) {
   body {
     width: 60rem;
     margin: 0 auto;
     padding: 0;
   }
 
-  header {
-    margin: 0 0 1rem;
-    padding: 1.2rem 0;
-  }
-
   nav {
-    margin: 0;
-    text-align: right;
-  }
-
-  nav a {
-    margin: 0 0 0 1.2rem;
-    display: inline;
-  }
-
-  footer {
     text-align: right;
   }
 

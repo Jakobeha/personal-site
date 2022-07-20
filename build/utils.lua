@@ -12,12 +12,27 @@ M.dump = function(value)
   return json.stringify(value)
 end
 
+M.array_contains = function(items, test)
+  for _, item in pairs(items) do
+    if item == test then
+      return true
+    end
+  end
+  return false
+end
+
 M.clone_table = function(table)
   local table2 = {}
   for k,v in pairs(table) do
     table2[k] = v
   end
   return table2
+end
+
+M.add_to_table = function(dst, src)
+  for k,v in pairs(src) do
+    dst[k] = v
+  end
 end
 
 M.unescape_string = function(string)

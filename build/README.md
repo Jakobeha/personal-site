@@ -16,7 +16,8 @@ Syntax:
     - If the file is `md` it will be a string with markdown converted to HTML using [luamd](https://github.com/bakpakin/luamd)
     - Any other files aren't supported
 - `<!--for key,value in expr -->...<!--end -->` repeats `...` binding `key` and `value` to each entry in `expr`. If an array, `key` is optional and will be the index.
-- `<!--if expr -->...if<!--else -->...else<!--end -->` becomes `...if` if `expr` is `true`, `...else` if `false`. The `else` block is optional. `expr` must evaluate to `true` or `false`.
+- `<!--raw -->...<!--end -->` renders `...` as-is, without any splicing. *Note that special `<!--` blocks (including `<!--raw -->`) are still processed.*
+- (not implemented) `<!--if expr -->...if<!--else -->...else<!--end -->` becomes `...if` if `expr` is `true`, `...else` if `false`. The `else` block is optional. `expr` must evaluate to `true` or `false`.
 
 Other stuff:
 

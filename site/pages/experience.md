@@ -40,7 +40,15 @@ I was a assistant researcher at the [<PRL@PRG>](https://prl-prg.github.io/) lab 
 
 ## Purdue Graduate School
 
-Currently, I am attending Purdue University of Indiana. As of spring 2021 I have taken:
+Currently, I am attending Purdue University of Indiana. As of spring 2023 I will have taken:
 
 - **CS510 Software Engineering:** Software engineering focused on machine learning to automate bug detection
 - **CS584 Theory:** Turing machines, complexity classes, and basic quantum computing
+- **CS503 Operating Systems:** Low-level OS knowledge and work on the [xinu](https://xinu.cs.purdue.edu/) teaching OS
+- **CS578 Machine Learning:** Machine learning basics, including decision trees, linear/logistic regression, basic neural networks (autoencoder), and SVMs
+- **CS592 Software Verification:** Seminar-style course where each student gave 2 presentations on papers involving software verification. My presentations were on sel4 ([original](http://web1.cs.columbia.edu/~junfeng/09fa-e6998/papers/sel4.pdf), [presentation](https://docs.google.com/presentation/d/1Cgm3cl_Gif4f-0eH8EJ5QqVfMcyiubmEbs0kUnBK8Vo/view
+  )) and Armada ([original](https://www.microsoft.com/en-us/research/publication/armada-low-effort-verification-of-high-performance-concurrent-programs/), [presentation](https://docs.google.com/presentation/d/1maUgRxwgRZFYOwerFPz93Cy9lTQOTWJFiLqqCIOmdZM/view))
+- **CS502 Compilers:** A class on compiler steps and algorithms (lexing, parsing, type checking, IR generation, static analyses, optimization, register allocation, etc.)
+- **CS592 Intepretability of ML:** Another seminar-style course where each student presented a paper involving interpretability of ML, and then created their own ML project. My presentation was on *Evaluating the Interpretability of Generative Models by Interactive Reconstruction* ([paper](https://arxiv.org/pdf/2102.01264), [presentation](https://docs.google.com/presentation/d/1NcmwGHCLBI81ssHzHllBpjRU_mrTM_xVs2A5dl49ALY/view)), and my project was on a modified implementation of AlphaZero which works on more general games ([presentation](https://docs.google.com/presentation/d/1ktt_2jE_DIQh3v-QaaWQfa3SbtFmu-c-LJC9pKUUkX8/view), [repo](https://github.com/Jakobeha/cge-ai), [a presentation on AlphaGo and its derivatives](https://docs.google.com/presentation/d/134bZdCOJR_RqtQYQ0bZaiAQbjQEjWe5V-gmtI5EBvPg/view))
+- **CS536 Distributed Networking (current):** A course on the evolution of networking (bridges, switches, OpenFlow, different networking layouts) where we build and simulate various device implementations using [mininet](http://mininet.org/)
+- **CS565 Programming Languages (current):** A course on programming language verification using [coq](https://coq.inria.fr/) and [dafny](https://www.microsoft.com/en-us/research/project/dafny-a-language-and-program-verifier-for-functional-correctness/)

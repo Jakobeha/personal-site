@@ -35,6 +35,7 @@
       <!--suppress HtmlUnknownTarget -->
       <a href="/contact.html">Contact</a>
     
+    <a href="/Resume.pdf">Resume</a>
 
     <a class="github" href="https://github.com/Jakobeha/Jakobeha.github.io" title="view source">
       <img src="/img/github.png" alt="github" class="light-mode">
@@ -45,6 +46,8 @@
 <main role="main">
   <h1>Experience</h1>
   
+<p>For more experience, see my <a href="/Resume.pdf">Resume</a>. Here is a detailed timeline of the important parts:</p>
+
 <h2>Prior September 2017</h2>
 
 <p>I started programming as a hobby working on side projects. In high school I took AP Computer Science A + AP Computer Science Principles.</p>
@@ -70,7 +73,7 @@
 
 <p>I also attended hackathons and clubs, and presented a poster at <a href="https://www.northeastern.edu/rise/">RISE</a> (a small University expo) on a side project: <a href="https://github.com/jakobeha/treescript"><strong>TreeScript</strong></a>, a programming language that rewrites syntax of other languages.</p>
 
-<h3>NuPRL</h3>
+<h3>NuPRL (Ř)</h3>
 
 <p>I worked at <a href="http://prl.ccs.neu.edu/">Northeastern's Programming Research Laboratory (NuPRL)</a> on an R JIT compiler called <a href="https://github.com/reactorlabs/rir">Ř</a>, with a large team. My specific contributions include:</p>
 
@@ -81,21 +84,38 @@
     <li>Bytecode serialization / deserialization, so we don't need to recompile the same function across sessions</li>
     <li>Experimented with manually adding extra annotations to functions to improve analysis / optimization, and checking these annotations at runtime</li>
     <li>Added a configurable assertion that a function won't modify variables outside of its lexical scope. In the R REPL, if a variable gets modified during execution of said function, the interpreter will signal an error and abort the current command.</li>
+    <li>Attempt using Software Transactional Memory to speculatively "force" pure lazy values: if the value triggers a side-effect during evaluation, the side effect will not occur and state will be reverted to before. If the transaction succeeds, we know that the value does not trigger side-effects, which greatly helps analysis.</li>
 </ul>
 
 <p>We published one paper, <strong><a href="https://arxiv.org/abs/1907.05118">R Melts Brains</a></strong> (SPLASH 2019). It describes the challenges of implementing a JIT compiler with static analysis in R, mainly because of laziness and first-class environments.</p>
 
-<h2>PRL@PRG Internship: January 2020 - May 2020 in Prague, June 2020 - July 2020 at home</h2>
+<h2>NextDroid Internship</h2>
 
-<p>I was a assistant researcher at the <a href="https://prl-prg.github.io/"><a href="&#x6d;&#97;&#x69;&#108;&#x74;&#111;&#x3a;P&#82;&#x4c;&#64;&#x50;&#82;&#x47;">&#x50;&#82;&#x4c;&#64;&#x50;&#82;&#x47;</a></a> lab in Prague, supervised by Jan Vitek. I helped write the paper <strong><a href="http://janvitek.org/pubs/oopsla20-cd.pdf">Contextual Dispatch for Function Specialization</a></strong> (SPLASH 2020), and developed a profiler for Ř. After the paper was published, I continued to work on the profiler and added an event logger. The profiler and event logger measure: number of call sites per function, number of times each function was executed at each call site, total execution time of the function, number of versions of each function (we compile multiple versions for different optimization contexts), time spent in each compilation pass for each version, number of times each function was deoptimized.</p>
+<p><a href="https://nextdroid.com/">NextDroid</a> provides ground-truth verification for self-driving cars using LIDAR: basically the company puts higher-powered sensors on top of the car's sensors to prove that the car sensors work properly. The sensors we used are <a href="https://velodynelidar.com/">VeloDyne</a>. I did <em>not</em> work on the ground-truth, however I worked on the website (TypeScript/JavaScript) and camera driver (C++).</p>
+
+<p>For the website, in particular I helped create a camera feed which stays in sync with the timeline. The "timeline" shows the car driving along a point-cloud, and the user can jump to arbitrary time points, or speed/slow playback. I had to find a way to fetch and play the video recorded from the camera so that it loads quickly when jumping to a time point, and didn't stutter when being played faster or slower. I implemented this by breaking the video into many images, and creating a smart heurstic for which images to fetch and when to cancel image fetch requests, so that the video can play and buffer accordingly.</p>
+
+<h2>PRL@PRG Internship (Ř): January 2020 - May 2020 in Prague</h2>
+
+<p>I was a assistant researcher at the <a href="https://prl-prg.github.io/"><a href="&#x6d;&#97;&#x69;&#108;&#x74;&#111;&#x3a;P&#82;&#x4c;&#64;&#x50;&#82;&#x47;">&#x50;&#82;&#x4c;&#64;&#x50;&#82;&#x47;</a></a> lab in Prague, supervised by Jan Vitek. I helped write another paper <strong><a href="http://janvitek.org/pubs/oopsla20-cd.pdf">Contextual Dispatch for Function Specialization</a></strong> (SPLASH 2020), and developed a profiler for Ř. After the paper was published, I continued to work on the profiler and added an event logger.</p>
+
+<p>The profiler and event logger measure: number of call sites per function, number of times each function was executed at each call site, total execution time of the function, number of versions of each function (we compile multiple versions for different optimization contexts), time spent in each compilation pass for each version, number of times each function was deoptimized.</p>
 
 <h2>Purdue Graduate School</h2>
 
-<p>Currently, I am attending Purdue University of Indiana. As of spring 2021 I have taken:</p>
+<p>Currently, I am attending Purdue University of Indiana. As of spring 2023 I will have taken:</p>
 
 <ul>
     <li><strong>CS510 Software Engineering:</strong> Software engineering focused on machine learning to automate bug detection</li>
     <li><strong>CS584 Theory:</strong> Turing machines, complexity classes, and basic quantum computing</li>
+    <li><strong>CS503 Operating Systems:</strong> Low-level OS knowledge and work on the <a href="https://xinu.cs.purdue.edu/">xinu</a> teaching OS</li>
+    <li><strong>CS578 Machine Learning:</strong> Machine learning basics, including decision trees, linear/logistic regression, basic neural networks (autoencoder), and SVMs</li>
+    <li><strong>CS592 Software Verification:</strong> Seminar-style course where each student gave 2 presentations on papers involving software verification. My presentations were on sel4 (<a href="http://web1.cs.columbia.edu/~junfeng/09fa-e6998/papers/sel4.pdf">original</a>, <a href="https://docs.google.com/presentation/d/1Cgm3cl_Gif4f-0eH8EJ5QqVfMcyiubmEbs0kUnBK8Vo/view
+">presentation</a>) and Armada (<a href="https://www.microsoft.com/en-us/research/publication/armada-low-effort-verification-of-high-performance-concurrent-programs/">original</a>, <a href="https://docs.google.com/presentation/d/1maUgRxwgRZFYOwerFPz93Cy9lTQOTWJFiLqqCIOmdZM/view">presentation</a>)</li>
+    <li><strong>CS502 Compilers:</strong> A class on compiler steps and algorithms (lexing, parsing, type checking, IR generation, static analyses, optimization, register allocation, etc.)</li>
+    <li><strong>CS592 Intepretability of ML:</strong> Another seminar-style course where each student presented a paper involving interpretability of ML, and then created their own ML project. My presentation was on <em>Evaluating the Interpretability of Generative Models by Interactive Reconstruction</em> (<a href="https://arxiv.org/pdf/2102.01264">paper</a>, <a href="https://docs.google.com/presentation/d/1NcmwGHCLBI81ssHzHllBpjRU_mrTM_xVs2A5dl49ALY/view">presentation</a>), and my project was on a modified implementation of AlphaZero which works on more general games (<a href="https://docs.google.com/presentation/d/1ktt_2jE_DIQh3v-QaaWQfa3SbtFmu-c-LJC9pKUUkX8/view">presentation</a>, <a href="https://github.com/Jakobeha/cge-ai">repo</a>, <a href="https://docs.google.com/presentation/d/134bZdCOJR_RqtQYQ0bZaiAQbjQEjWe5V-gmtI5EBvPg/view">a presentation on AlphaGo and its derivatives</a>)</li>
+    <li><strong>CS536 Distributed Networking (current):</strong> A course on the evolution of networking (bridges, switches, OpenFlow, different networking layouts) where we build and simulate various device implementations using <a href="http://mininet.org/">mininet</a>. Focuses on performance challenges and improvements, as efficiency is the main networking challenge today</li>
+    <li><strong>CS565 Programming Languages (current):</strong> A course on programming language verification using <a href="https://coq.inria.fr/">coq</a> and <a href="https://www.microsoft.com/en-us/research/project/dafny-a-language-and-program-verifier-for-functional-correctness/">dafny</a></li>
 </ul>
 
 

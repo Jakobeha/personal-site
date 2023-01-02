@@ -1,3 +1,3 @@
-- **E-mail:** [jakobeha@fastmail.com](mailto:jakobeha@fastmail.com)
+- **E-mail:** [jakobeha@gmail.com](mailto:jakobeha@gmail.com)
 - **GitHub:** <https://github.com/jakobeha>
 - **Residence:** [108 South River Road, West Lafayette, IN 47906](https://www.google.com/maps?q=108+South+River+Road,+West+Lafayette,+IN+47906&um=1&ie=UTF-8&sa=X)

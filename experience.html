@@ -87,7 +87,7 @@
     <li>Attempt using Software Transactional Memory to speculatively "force" pure lazy values: if the value triggers a side-effect during evaluation, the side effect will not occur and state will be reverted to before. If the transaction succeeds, we know that the value does not trigger side-effects, which greatly helps analysis.</li>
 </ul>
 
-<p>We published one paper, <strong><a href="https://arxiv.org/abs/1907.05118">R Melts Brains</a></strong> (SPLASH 2019). It describes the challenges of implementing a JIT compiler with static analysis in R, mainly because of laziness and first-class environments.</p>
+<p>We published one paper, <strong><a href="https://arxiv.org/abs/1907.05118">R Melts Brains</a></strong> (DLS/SPLASH 2019). It describes the challenges of implementing a JIT compiler with static analysis in R, mainly because of laziness and first-class environments.</p>
 
 <h2>NextDroid Internship</h2>
 
@@ -97,7 +97,7 @@
 
 <h2>PRL@PRG Internship (Ř): January 2020 - May 2020 in Prague</h2>
 
-<p>I was a assistant researcher at the <a href="https://prl-prg.github.io/"><a href="&#x6d;&#97;&#x69;&#108;&#x74;&#111;&#x3a;P&#82;&#x4c;&#64;&#x50;&#82;&#x47;">&#x50;&#82;&#x4c;&#64;&#x50;&#82;&#x47;</a></a> lab in Prague, supervised by Jan Vitek. I helped write another paper <strong><a href="http://janvitek.org/pubs/oopsla20-cd.pdf">Contextual Dispatch for Function Specialization</a></strong> (SPLASH 2020), and developed a profiler for Ř. After the paper was published, I continued to work on the profiler and added an event logger.</p>
+<p>I was a assistant researcher at the <a href="https://prl-prg.github.io/"><a href="&#x6d;&#97;&#x69;&#108;&#x74;&#111;&#x3a;P&#82;&#x4c;&#64;&#x50;&#82;&#x47;">&#x50;&#82;&#x4c;&#64;&#x50;&#82;&#x47;</a></a> lab in Prague, supervised by Jan Vitek. I helped write another paper <strong><a href="http://janvitek.org/pubs/oopsla20-cd.pdf">Contextual Dispatch for Function Specialization</a></strong> (OOPSLA/SPLASH 2020), and developed a profiler for Ř. After the paper was published, I continued to work on the profiler and added an event logger.</p>
 
 <p>The profiler and event logger measure: number of call sites per function, number of times each function was executed at each call site, total execution time of the function, number of versions of each function (we compile multiple versions for different optimization contexts), time spent in each compilation pass for each version, number of times each function was deoptimized.</p>
 
@@ -116,7 +116,7 @@
     <li><strong>CS592 Intepretability of ML:</strong> Seminar course where each student presented a paper involving interpretability of ML, and then created their own ML project. My presentation was on <em>Evaluating the Interpretability of Generative Models by Interactive Reconstruction</em> (<a href="https://arxiv.org/pdf/2102.01264">paper</a>, <a href="https://docs.google.com/presentation/d/1NcmwGHCLBI81ssHzHllBpjRU_mrTM_xVs2A5dl49ALY/view">presentation</a>), and my project was on a modified implementation of AlphaZero which works on more general games (<a href="https://docs.google.com/presentation/d/1ktt_2jE_DIQh3v-QaaWQfa3SbtFmu-c-LJC9pKUUkX8/view">presentation</a>, <a href="https://github.com/Jakobeha/cge-ai">repo</a>, <a href="https://docs.google.com/presentation/d/134bZdCOJR_RqtQYQ0bZaiAQbjQEjWe5V-gmtI5EBvPg/view">a presentation on AlphaGo and its derivatives</a>)</li>
     <li><strong>CS536 Distributed Networking:</strong> Evolution of networking (bridges, switches, OpenFlow, different networking layouts). We built and simulated various device implementations using <a href="http://mininet.org/">mininet</a>. Focuses on performance challenges and improvements, as efficiency is the main networking challenge today</li>
     <li><strong>CS565 Programming Languages:</strong> Programming language verification using <a href="https://coq.inria.fr/">coq</a> and <a href="https://www.microsoft.com/en-us/research/project/dafny-a-language-and-program-verifier-for-functional-correctness/">dafny</a></li>
-    <li><strong>CS592 Types and Programming Languages (current):</strong> Seminar course on type systems: covers advanced systems like <a href="https://en.wikipedia.org/wiki/Dependent_type">Dependent Types</a> and some of the latest research papers</li>
+    <li><strong>CS592 Types and Programming Languages (current):</strong> Seminar course on type systems: covers advanced types/formal-methods concepts like <a href="https://en.wikipedia.org/wiki/Dependent_type">Dependent Types</a> and some of the latest research papers</li>
 </ul>
 
 

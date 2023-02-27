@@ -11,6 +11,6 @@
   "link_summaries": {
     "projects": "{/fragments/projects-summary.md}",
     "experience": "{/fragments/experience-summary.md}",
-    "contact": "{/pages/contact.md}"
+    "contact": "{/fragments/contact.md}"
   }
 }

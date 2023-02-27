@@ -96,7 +96,7 @@ function run_template(extension, content, bindings, inputs)
   end
 
   -- Substitute
-  local result = nil
+  local result
   local new_result = content
   while new_result do
     result = new_result
@@ -148,22 +148,26 @@ end
 
 function try_substitute_splice(result, bindings)
   -- Match { but not {{, expecting at least one character after the {
-  local before_start_index, after_start_index = result:find("[^{]{[^{]");
+  local start_index = result:find("[^{]{[^{]");
   if result:sub(1, 1) == "{" and result:sub(2, 2) ~= "{" then
-    before_start_index = 1
-    after_start_index = 2
+    start_index = 1
+  elseif start_index then
+    start_index = start_index + 1
   end
 
-  if not before_start_index then
+  if not start_index then
     return nil
   end
 
-  local end_index = result:find("}", after_start_index)
+  local end_index = result:find("}", start_index)
+  if not end_index then
+    error("Unmatched { at " .. start_index .. " in " .. result)
+  end
 
-  local expr_raw = result:sub(after_start_index, end_index - 1)
+  local expr_raw = result:sub(start_index + 1, end_index - 1)
   local expr = run_expr(expr_raw, bindings)
 
-  return result:sub(1, before_start_index) .. expr .. result:sub(end_index + 1)
+  return result:sub(1, start_index - 1) .. expr .. result:sub(end_index + 1)
 end
 
 function run_for(for_head_raw, for_body_raw, bindings)
@@ -317,7 +321,7 @@ function run_load(load_raw, bindings)
 end
 
 function get_binding(bindings, id)
-  local result = nil
+  local result
   for k,v in utils.opairs(bindings) do
     if k == id then
       if result ~= nil

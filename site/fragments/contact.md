@@ -1,3 +1,3 @@
-- **E-mail:** [jakobeha@gmail.com](mailto:jakobeha@gmail.com)
+- **E-mail:** [jakobeha@fastmail.com](mailto:jakobeha@fastmail.com)
 - **GitHub:** <https://github.com/jakobeha>
 - **Residence:** [West Lafayette, IN 47906](https://www.google.com/maps?q=West+Lafayette,+IN+47906&um=1&ie=UTF-8&sa=X)

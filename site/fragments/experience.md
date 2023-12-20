@@ -29,7 +29,7 @@ For the website, in particular I helped create a camera feed which stays in sync
 
 ### NuPRL (Ř)
 
-I worked at [Northeastern's Programming Research Laboratory (NuPRL)](http://prl.ccs.neu.edu/) on an R JIT compiler called [Ř](https://github.com/reactorlabs/rir), with a large team. My specific contributions include:
+I worked at [Northeastern's Programming Research Laboratory (NuPRL)](http://prl.ccs.neu.edu/) on an R JIT compiler called [Ř (formerly RIR)](https://github.com/reactorlabs/rir), with a large team. My specific contributions include:
 
 - Attempt using Software Transactional Memory to speculatively "force" pure lazy values: if the value triggers a side-effect during evaluation, the side effect will not occur and state will be reverted to before. If the transaction succeeds, we know that the value does not trigger side-effects, which greatly helps analysis.
 - Added a configurable assertion that a function won't modify variables outside of its lexical scope. In the R REPL, if a variable gets modified during execution of said function, the interpreter will signal an error and abort the current command.

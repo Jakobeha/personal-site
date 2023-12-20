@@ -1,1 +1,1 @@
-Hello, I’m a third-year PhD student at Purdue University in Indiana. My research field is programming languages and software engineering and I also have experience with general software development. My goal is to create tools to help other people create content.
+Hello, I’m a third-year PhD student at Purdue University in Indiana. My research field is programming languages and software engineering and I also have experience with general software development. My goal is to create tools to help other people create.

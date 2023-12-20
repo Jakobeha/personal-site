@@ -2,7 +2,7 @@ For more experience, see my [Resume](/Resume.pdf). Here is a detailed timeline o
 
 ## Purdue Graduate School
 
-Currently, I am attending Purdue University of Indiana. As of summer 2023 I have taken:
+Currently, I am attending Purdue University of Indiana. These are the courses I have taken:
 
 - **CS592TPL Types and Programming Languages:** Seminar course on type systems: covers advanced types/formal-methods concepts like [Dependent Types](https://en.wikipedia.org/wiki/Dependent_type) and some of the latest research papers
 - **CS592SV Verifying Systems At Scale:** Seminar course where each student gave 2 presentations on papers involving software verification. My presentations were on sel4 ([original](http://web1.cs.columbia.edu/~junfeng/09fa-e6998/papers/sel4.pdf), [presentation](https://docs.google.com/presentation/d/1Cgm3cl_Gif4f-0eH8EJ5QqVfMcyiubmEbs0kUnBK8Vo/view)) and Armada ([original](https://www.microsoft.com/en-us/research/publication/armada-low-effort-verification-of-high-performance-concurrent-programs/), [presentation](https://docs.google.com/presentation/d/1maUgRxwgRZFYOwerFPz93Cy9lTQOTWJFiLqqCIOmdZM/view))

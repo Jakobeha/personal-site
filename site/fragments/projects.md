@@ -4,15 +4,9 @@
 
 #### More personal projects:
 
-- **[devolve](https://github.com/Jakobeha/devolve)** (incomplete): Node-based DSL and experimental low-code UI framework
-- **[devolve-ui.js](https://github.com/Jakobeha/devolve-ui.js)**: Old attempt at devolve-ui. Used reactive TypeScript/JSX instead of a node-based DSL
-- **Descript ([v1 (Haskell)](https://bitbucket.org/jakobeha/descript-lang/src/master/) and [v2 (OCaml)](https://bitbucket.org/jakobeha/descript-ocaml/src/master/))**: A language designed to transform its own syntax. Descript programs can be applied to other source files, actually modifying them on the file-system
+All recent projects are on [GitHub](https://github.com/jakobeha).
 
----
-
-See [almost] all projects on [GitHub](https://github.com/jakobeha).
-
-See [remaining] projects (pre-2019) in [BitBucket](https://bitbucket.org/jakobeha)
+Old projects (pre-2019) are on [BitBucket](https://bitbucket.org/jakobeha).
 
 [This
 website](https://github.com/Jakobeha/jakobeha.github.io).

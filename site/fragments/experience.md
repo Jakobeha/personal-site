@@ -2,7 +2,13 @@ For more experience, see my [Resume](/Resume.pdf). Here is a detailed timeline o
 
 ## Purdue Graduate School
 
-Currently, I am attending Purdue University of Indiana. These are the courses I have taken:
+Currently, I am attending Purdue University of Indiana. I am working with Jan Vitek and Suresh Jagannathan on a JIT compiler server for Ř, inspired by **[Reusing Just-in-Time Compiled Code](https://dl.acm.org/doi/10.1145/3622839)**.
+
+### Service
+
+Since 2021 I've TA'd for **CS307 Software Development**, a course where students design their own project following SCRUM. In Fall 2022 and Fall 2023 I was head TA.
+
+### Classes
 
 - **CS592TPL Types and Programming Languages:** Seminar course on type systems: covers advanced types/formal-methods concepts like [Dependent Types](https://en.wikipedia.org/wiki/Dependent_type) and some of the latest research papers
 - **CS592SV Verifying Systems At Scale:** Seminar course where each student gave 2 presentations on papers involving software verification. My presentations were on sel4 ([original](http://web1.cs.columbia.edu/~junfeng/09fa-e6998/papers/sel4.pdf), [presentation](https://docs.google.com/presentation/d/1Cgm3cl_Gif4f-0eH8EJ5QqVfMcyiubmEbs0kUnBK8Vo/view)) and Armada ([original](https://www.microsoft.com/en-us/research/publication/armada-low-effort-verification-of-high-performance-concurrent-programs/), [presentation](https://docs.google.com/presentation/d/1maUgRxwgRZFYOwerFPz93Cy9lTQOTWJFiLqqCIOmdZM/view))
@@ -17,7 +23,7 @@ Currently, I am attending Purdue University of Indiana. These are the courses I 
 
 ## PRL@PRG Internship (Ř): January 2020 - May 2020 in Prague
 
-I was a assistant researcher at the [<PRL@PRG>](https://prl-prg.github.io/) lab in Prague, supervised by Jan Vitek. I helped write another paper **[Contextual Dispatch for Function Specialization](http://janvitek.org/pubs/oopsla20-cd.pdf)** (OOPSLA/SPLASH 2020), and developed a profiler for Ř. After the paper was published, I continued to work on the profiler and added an event logger.
+I was a assistant researcher at the [PRL@PRG](https://prl-prg.github.io/) lab in Prague, supervised by Jan Vitek. I helped write another paper **[Contextual Dispatch for Function Specialization](http://janvitek.org/pubs/oopsla20-cd.pdf)** (OOPSLA/SPLASH 2020), and developed a profiler for [Ř](#nuprl-ř). After the paper was published, I continued to work on the profiler and added an event logger.
 
 The profiler and event logger measure: number of call sites per function, number of times each function was executed at each call site, total execution time of the function, number of versions of each function (we compile multiple versions for different optimization contexts), time spent in each compilation pass for each version, number of times each function was deoptimized.
 
@@ -61,7 +67,7 @@ I graduated with a Bachelor's degree in Computer Science and a GPA of 3.877 / 4.
 - **CS2500 Fundamentals of Computer Science 1**: Writing simple functional programs in Racket
 - **ENGW3301 Advanced Writing**: Technical writing to different audiences (e.g. research paper, portfolio)
 
-I also attended hackathons and clubs, and presented a poster at [RISE](https://www.northeastern.edu/rise/) (a small University expo) on a side project: [**TreeScript**](https://github.com/jakobeha/treescript), a programming language that rewrites syntax of other languages.
+I also attended hackathons and clubs, and presented a poster at [RISE](https://www.northeastern.edu/rise/) (a small University expo) on a side project: **[TreeScript](https://github.com/jakobeha/treescript)**, a programming language that rewrites syntax of other languages.
 
 ## Prior September 2017
 
